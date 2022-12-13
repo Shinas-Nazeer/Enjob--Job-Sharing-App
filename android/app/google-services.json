@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "198678978318",
+    "project_id": "enjob2-d4689",
+    "storage_bucket": "enjob2-d4689.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198678978318:android:6bdc0c0715416af08e415f",
+        "android_client_info": {
+          "package_name": "shinas.enjobproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "198678978318-8h9d56bjkp5vdi74eldksbfe1u735som.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "shinas.enjobproject",
+            "certificate_hash": "8287c2b3b573abaae7af1deae23a8c97148ae5d2"
+          }
+        },
+        {
+          "client_id": "198678978318-i6mu3df1j79qnatjkcnems7ep0f96n7m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQoFFGKa6LoFJiBEp02jF-f2VGbTvhOT8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "198678978318-i6mu3df1j79qnatjkcnems7ep0f96n7m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
