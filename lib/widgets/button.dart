@@ -1,34 +1,25 @@
-import 'package:enjobproject/screens/screen_login.dart';
+
 import 'package:flutter/material.dart';
 
-class KButton extends StatelessWidget {
-  const KButton({
-    Key? key,
-    required this.label,
-  }) : super(key: key);
-  final String label;
+import '../constants/constants.dart';
 
+class Mybutton extends StatelessWidget {
+ const Mybutton({super.key, required this.label, required this.ontap});
+
+final String label;
+final Function() ontap;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ScreenLoginPage()));
-      },
-      child: PhysicalModel(
-        elevation: 8,
-        color: const Color.fromARGB(156, 41, 182, 246),
-        borderRadius: BorderRadius.circular(20),
-        child: SizedBox(
-            width: 200.0,
-            height: 50,
-            child: Center(
-              child: Text(
-                label,
-                style: const TextStyle(
-                    fontSize: 25, fontFamily: ('Popins'), color: Colors.white),
-              ),
-            )),
+    return InkWell(
+      onTap: ontap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: kBlack,
+          borderRadius: BorderRadius.circular(8)
+        ),
+        padding: const EdgeInsets.all(25),
+        margin: const EdgeInsets.symmetric(horizontal: 25),
+        child:  Text(label, style: const TextStyle(color: Colors.white, fontSize: 10),), 
       ),
     );
   }

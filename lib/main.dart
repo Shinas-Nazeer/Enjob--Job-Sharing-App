@@ -1,5 +1,7 @@
 
+import 'package:enjobproject/provider/create_account.dart';
 import 'package:enjobproject/provider/googlesignin.dart';
+import 'package:enjobproject/provider/onoff_notifier.dart';
 
 import 'package:enjobproject/provider/passwordhider.dart';
 import 'package:enjobproject/screens/screen_curvednavigation.dart';
@@ -30,12 +32,19 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => PasswordHider(),
         ),
+           ChangeNotifierProvider(
+          create: (_) => Userdetailsvaribles(),
+        ),
+                ChangeNotifierProvider(
+          create: (_) => ReccuritmentOnoff(),
+        ),
     
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             fontFamily: ('Popins'),
+           
             inputDecorationTheme: const InputDecorationTheme(
                 filled: true, fillColor: Colors.white)),
         home: const MyApp1(),

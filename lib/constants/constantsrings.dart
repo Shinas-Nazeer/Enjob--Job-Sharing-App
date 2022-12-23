@@ -1,0 +1,1 @@
+const String kforgetmessage = 'Enter Your Email will\nsend you the link';

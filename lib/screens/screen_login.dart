@@ -11,24 +11,21 @@ import '../provider/passwordhider.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 
+// ignore: must_be_immutable
 class ScreenLoginPage extends StatelessWidget {
 ScreenLoginPage({super.key});
 
   final _auth = FirebaseAuth.instance;
-
   final formKey = GlobalKey<FormState>();
-
   String? passWord;
-
   String? name;
-
-
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: kThemecolor,
+      backgroundColor: kThemecolor,
+    
         body: Consumer<GoogleSignProvider>(
           builder: ((context, value1, child) =>
            ModalProgressHUD(
@@ -148,7 +145,7 @@ ScreenLoginPage({super.key});
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const ScreenForgetPassword()));
+                                             ScreenForgetPassword()));
                               }),
                               child: const Text(
                                 'Forget Password?',
@@ -171,7 +168,7 @@ ScreenLoginPage({super.key});
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const ScreenRegistration()));
+                                               ScreenRegistration()));
                                   }),
                                   child: const Text("Sign in",
                                       style: TextStyle(color: Colors.red))),

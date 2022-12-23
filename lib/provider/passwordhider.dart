@@ -11,9 +11,6 @@ changeEyeIcon() {
     notifyListeners();
   }
 
-printing(){
-  print('hia');
-}
 
 
 
