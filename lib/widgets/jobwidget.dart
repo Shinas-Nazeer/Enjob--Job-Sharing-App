@@ -8,10 +8,12 @@ class Jobwidget extends StatelessWidget {
   final String uploadedby;
   final String lastdate;
   final String image;
+  final String uploaderEmail;
   final Widget trailing;
   final String userUID;
   final String jobId;
   final int applicants;
+  final String joblocation;
   const Jobwidget(
       {super.key,
       required this.jobtitle,
@@ -19,7 +21,8 @@ class Jobwidget extends StatelessWidget {
       required this.uploadedby,
       required this.lastdate,
       required this.image,
-      required this.trailing, required this.userUID, required this.jobId, required this.applicants});
+      
+      required this.trailing, required this.userUID, required this.jobId, required this.applicants, required this.joblocation, required this.uploaderEmail});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class Jobwidget extends StatelessWidget {
       child: ListTile(
           onTap: (() {
             Navigator.pushReplacement(context, MaterialPageRoute
-            (builder: ((context) =>  ScreenJobdetails(image: image, uploadedby: uploadedby, jobTitle: jobtitle, userUId: userUID, jobId: jobId, jobdescription: jobdescriptions, lastdate1: lastdate, applicants: applicants,))));
+            (builder: ((context) =>  ScreenJobdetails(image: image, uploadedby: uploadedby, jobTitle: jobtitle, userUId: userUID, jobId: jobId, jobdescription: jobdescriptions, lastdate1: lastdate, applicants: applicants, jobLoaction: joblocation, uploaderEmail: uploaderEmail,))));
           }),
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

@@ -1,11 +1,14 @@
 
 import 'package:flutter/material.dart';
-errormessage(context , message){
-   ScaffoldMessenger.of(context).showSnackBar(
-                                               SnackBar(
-                                                  duration: Duration(seconds: 3),
-                                                  backgroundColor: Colors.red,
-                                                  content: Text(
-                                                    message  )));
+import 'package:fluttertoast/fluttertoast.dart';
 
+
+
+
+globalMessage ({required color, required String messgae }) async{
+               await Fluttertoast.showToast(msg: messgae,
+                toastLength: Toast.LENGTH_LONG,
+                backgroundColor: color,
+                fontSize:18.0 );
 }
+

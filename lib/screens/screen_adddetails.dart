@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:enjobproject/globalerror/errormessage.dart';
 import 'package:enjobproject/jobcategory/jobcatlist.dart';
+import 'package:enjobproject/widgets/button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -19,17 +20,20 @@ class ScreenAddDetails extends StatefulWidget {
 
 class _ScreenAddDetailsState extends State<ScreenAddDetails> {
   String? category;
-final user = FirebaseAuth.instance.currentUser!;
+  final user = FirebaseAuth.instance.currentUser!;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _dateController =
       TextEditingController(text: 'Select Deadline Date');
   final TextEditingController _jobCatController =
       TextEditingController(text: 'Select Category');
+  final TextEditingController _jobtitleController = TextEditingController();
+  final TextEditingController _jobdescriptionController =
+      TextEditingController( );
+       final TextEditingController _joblocationController =
+      TextEditingController( );
   DateTime? picked;
 
   Timestamp? deadLinedateTimestamp;
-  String? jobtitle;
-  String? jobdescription;
 
   void _pickDate() async {
     picked = await showDatePicker(
@@ -52,17 +56,24 @@ final user = FirebaseAuth.instance.currentUser!;
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+        backgroundColor: kWhite,
         appBar: AppBar(
-          iconTheme: const IconThemeData(color: kThemecolor),
-          backgroundColor: Colors.white,
+          centerTitle: true,
+          title: const Text(
+            'Post Your Requirement',
+            style: TextStyle(color: kBlack),
+          ),
+          iconTheme: const IconThemeData(color: kBlack  ),
+          backgroundColor: kWhite,
           elevation: 0,
         ),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0),
-          child: Container(
-            decoration: const BoxDecoration(
-                color: kThemecolor,
-                borderRadius: BorderRadius.all(Radius.circular(10))),
+          child: Card(
+            color: kWithe70,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: SingleChildScrollView(
@@ -87,20 +98,24 @@ final user = FirebaseAuth.instance.currentUser!;
                       TextFormField(
                         validator: (value) => validatefields(value),
                         decoration: style('Job Title'),
-                        onChanged: (value) {
-                          jobtitle = value;
-                        },
+                        controller: _jobtitleController,
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       TextFormField(
-                        maxLines: 10,
+                        maxLines: 7,
                         validator: (value) => validatefields(value),
                         decoration: style('Job Description:'),
-                        onChanged: (value) {
-                          jobdescription = value;
-                        },
+                        controller: _jobdescriptionController,
+                      ),
+                        const SizedBox(
+                        height: 10,
+                      ),
+                      TextFormField(
+                        validator: (value) => validatefields(value),
+                        decoration: style('Job Location'),
+                        controller: _joblocationController,
                       ),
                       const SizedBox(
                         height: 10,
@@ -119,10 +134,62 @@ final user = FirebaseAuth.instance.currentUser!;
                       const SizedBox(
                         height: 10,
                       ),
-                      button(formKey: _formKey, dateController: _dateController, jobCatController: _jobCatController, jobtitle: jobtitle, jobdescription: jobdescription, deadLinedateTimestamp: deadLinedateTimestamp),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.4,
-                      )
+                      Mybutton(
+                          label: 'Post Now',
+                          ontap: () async {
+                            final jobId = const Uuid().v4();
+                            User? user = FirebaseAuth.instance.currentUser;
+                            final uid = user!.uid;
+
+                            if (_formKey.currentState!.validate()) {
+                              if (_dateController.text ==
+                                      'Select Deadline Date' ||
+                                  _jobCatController.text == 'Select Category') {
+                              globalMessage(color: Colors.red, messgae: 'Please Select all details');
+                              } else {
+                                try {
+                                  await FirebaseFirestore.instance
+                                      .collection('jobs')
+                                      .doc(jobId)
+                                      .set({
+                                    'jobId': jobId,
+                                    'uploadedby': uid,
+                                    'email': user.email,
+                                    'joblocation': _joblocationController.text,
+                                    'jobtitle': _jobtitleController.text,   
+                                    'jobdescription':
+                                        _jobdescriptionController.text,
+                                    'deadlinedate': _dateController.text,
+                                    'deadlinedatetimestamp':
+                                        deadLinedateTimestamp,
+                                    'jobcategory': _jobCatController.text,
+                                    'jobcomments': [],
+                                    'requirement': true,
+                                    'createdat': Timestamp.now(),
+                                    'applicants': 0,
+                                    'name': user.displayName!,
+                                    'userimage': user.photoURL,
+                                    'location': locations,
+                                    'listofapplicants':[],
+                                    'messages':[],
+                                    'applicantslist':[]
+                                  });
+                                  globalMessage(
+                                      color: Colors.green,
+                                      messgae: 'Uploaded SuceesFuly');
+
+                                  _jobCatController.clear();
+                                  _dateController.clear();
+                                  _jobtitleController.clear();     
+                                  _jobCatController.clear();
+                                  _jobdescriptionController.clear();
+                                  _joblocationController.clear();
+                                } catch (e) {
+                                  print(e);
+                                }
+                              }
+                            }
+                          })
                     ],
                   ),
                 ),
@@ -143,11 +210,11 @@ final user = FirebaseAuth.instance.currentUser!;
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
       ),
       enabledBorder: const OutlineInputBorder(
-        borderSide: BorderSide(color: kThemecolor, width: 2.0),
+        borderSide: BorderSide(color: kBlack, width: 2.0),
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
       ),
       focusedBorder: const OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.blue, width: 2.0),
+        borderSide: BorderSide(color: kBlack, width: 2.0),
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
       ),
     );
@@ -191,96 +258,6 @@ final user = FirebaseAuth.instance.currentUser!;
       });
 }
 
-class button extends StatelessWidget {
-  const button({
-    Key? key,
-    required GlobalKey<FormState> formKey,
-    required TextEditingController dateController,
-    required TextEditingController jobCatController,
-    required this.jobtitle,
-    required this.jobdescription,
-    required this.deadLinedateTimestamp,
-  }) : _formKey = formKey, _dateController = dateController, _jobCatController = jobCatController, super(key: key);
-
-  final GlobalKey<FormState> _formKey;
-  final TextEditingController _dateController;
-  final TextEditingController _jobCatController;
-  final String? jobtitle;
-  final String? jobdescription;
-  final Timestamp? deadLinedateTimestamp;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.lightBlueAccent,
-      borderRadius:
-          const BorderRadius.all(Radius.circular(30.0)),
-      elevation: 5.0,
-      child: MaterialButton(
-          minWidth: 200.0,
-          height: 42.0,
-          onPressed: () async {
-          final jobId = const Uuid().v4();
-          User? user = FirebaseAuth.instance.currentUser;
-          final uid = user!.uid;
-
-
-
-            if (_formKey.currentState!.validate()) {
-              if (_dateController.text == 'Select Deadline Date'||
-                  _jobCatController.text ==
-                     'Select Category' ) {
-                        errormessage(context, 'Please Select all details');
-                     
-                      }
-                       else{
-              try{
-                await FirebaseFirestore.instance.collection('jobs').doc(jobId).set({
-                 'jobId':jobId,
-                 'uploadedby':uid,
-                 'email' :user.email,
-                 'jobtitle':jobtitle,
-                 'jobdescription':jobdescription,
-                 'deadlinedate':_dateController.text,
-                 'deadlinedatetimestamp':deadLinedateTimestamp,
-                 'jobcategory': _jobCatController.text,
-                 'jobcomments': [],
-                 'requirement': true,
-                 'createdat': Timestamp.now(),
-                 'applicants':0,
-                 'name': user.displayName!,
-                 'userimage': user.photoURL,
-                 'location': locations
-
-
-                });
-                await Fluttertoast.showToast(msg: 'Uploaded SuceesFuly',
-                toastLength: Toast.LENGTH_LONG,
-                backgroundColor: Colors.green,
-                fontSize:18.0 );
-          
-            //  _jobCatController.clear();
-            //   _dateController.clear();
-            //   jobtitle = null;
-            //   jobdescription = null;
-         
-             
-              }
-              catch (e){
-print(e);
-              }
-            }
-            }
-        
-           
-          },
-          child: const Text(
-            'Post Now',
-            style: TextStyle(color: Colors.white),
-          )),
-    );
-  }
-}
 
 validatefields(value) {
   if (value!.isEmpty) {

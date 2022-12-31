@@ -1,13 +1,8 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:enjobproject/constants/constants.dart';
-
 import 'package:enjobproject/widgets/jobwidget.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:searchbar_animation/searchbar_animation.dart';
-
 import '../jobcategory/jobcatlist.dart';
 
 class ScreenHomePage extends StatefulWidget {
@@ -25,15 +20,33 @@ String? jobcategoryfilter;
 class _ScreenHomePageState extends State<ScreenHomePage> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: kWhite,
         elevation: 0,
+        leading: InkWell(
+          onTap: (() {
+            showcatDialogtoUser(context, size);
+          }),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CircleAvatar(
+                backgroundColor: kBlack,
+                child: Icon(
+                  Icons.sort_rounded,
+                  color:
+                      (jobcategoryfilter == null) ? Colors.white : Colors.red,
+                )),
+          ),
+        ),
+       
       ),
+      backgroundColor: kWhite,
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
             .collection('jobs')
+            // .where('jobtitle')
             .where('jobcategory', isEqualTo: jobcategoryfilter)
             .where('requirement', isEqualTo: true)
             .orderBy('createdat', descending: false)
@@ -48,22 +61,14 @@ class _ScreenHomePageState extends State<ScreenHomePage> {
               return SafeArea(
                 child: Column(
                   children: [
-
-                                       AnimatedTextKit(
-                      animatedTexts: [
-
-                         TypewriterAnimatedText('Find Your PerFect Job', textStyle: const TextStyle(fontSize: 30, color: Colors.black26),
-  ),
-                      ],
-                      isRepeatingAnimation: true,
-                      totalRepeatCount: 4,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: topSearchbar(context, size),
-                    ),
                     const SizedBox(
-                      height: 4,
+                      height: 20,
+                    ),
+                    Row(
+                      children:const [
+                        SizedBox(width: 10,),
+                       Text('Find Your \nPerfect job', style: TextStyle(fontSize:40),),
+                      ],
                     ),
                     Expanded(
                       child: ListView.builder(
@@ -80,7 +85,11 @@ class _ScreenHomePageState extends State<ScreenHomePage> {
                                 Icons.keyboard_arrow_right,
                                 size: 40,
                                 color: kBlack,
-                              ), userUID: jobdetails['uploadedby'], jobId: jobdetails['jobId'], applicants: jobdetails['applicants'],
+                              ),
+                              userUID: jobdetails['uploadedby'],
+                              jobId: jobdetails['jobId'],
+                              applicants: jobdetails['applicants'],
+                              joblocation: jobdetails['joblocation'], uploaderEmail: jobdetails['email'],
                             );
                           })),
                     ),
@@ -90,54 +99,20 @@ class _ScreenHomePageState extends State<ScreenHomePage> {
             } else {
               return SafeArea(
                 child: Column(
+                  // ignore: prefer_const_literals_to_create_immutables
                   children: [
-                    topSearchbar(context, size),
-                    const Center(
-                        child: Text('NO Jobs Available for this Filter')),
+
+                    const Center(child: Text('NO jobs Available for this Category')),
                   ],
                 ),
               );
             }
           }
           return const Center(
-            child: Text('Somethinf Went Wrong'),
+            child: Text('Something Went Wrong'),
           );
         },
       ),
-    );
-  }
-
-  SearchBarAnimation topSearchbar(BuildContext context, Size size) {
-    return SearchBarAnimation(
-      searchBoxBorderColour: Colors.black26,
-      buttonShadowColour: Colors.black26,
-      cursorColour: Colors.black26,
-      trailingWidget: InkWell(
-          onTap: () {
-            showcatDialogtoUser(context, size);
-          },
-          child: Icon(
-            Icons.sort_sharp,
-            color: (jobcategoryfilter == null) ? Colors.black26 : Colors.red,
-          )),
-      textEditingController: TextEditingController(),
-      isOriginalAnimation: false,
-      buttonBorderColour: Colors.black26,
-      buttonWidget: const Icon(
-        Icons.search,
-        color: Colors.black26,
-      ),
-      onFieldSubmitted: (String value) {
-        debugPrint('onFieldSubmitted value $value');
-      },
-      secondaryButtonWidget: InkWell(
-          onTap: (() {
-            //navigate to search screen
-          }),
-          child: const Icon(
-            Icons.search,
-            color: Colors.black26,
-          )),
     );
   }
 

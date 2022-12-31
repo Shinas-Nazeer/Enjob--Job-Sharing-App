@@ -6,17 +6,22 @@ class CommonTextFormField extends StatelessWidget {
   final TextInputType keyboardType;
   final Function validator;
   final TextEditingController textEditingController;
+ final int length;
+ final bool enabled;
   const CommonTextFormField(
       {super.key,
       required this.label,
       this.keyboardType = TextInputType.emailAddress,
       required this.validator,
-      required this.textEditingController});
+      required this.textEditingController,  this.length=1,  this.enabled = true});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20.0, 0, 20.0, 0),
       child: TextFormField(
+        enabled: enabled,
+        maxLines: length,
           cursorColor: kBlack,
           keyboardType: keyboardType,
           validator: (value) => validator(value),

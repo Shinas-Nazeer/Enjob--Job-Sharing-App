@@ -1,6 +1,6 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
+
 import 'package:enjobproject/constants/constants.dart';
-import 'package:enjobproject/screens/screen_homepage.dart';
+
 import 'package:enjobproject/widgets/textform.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

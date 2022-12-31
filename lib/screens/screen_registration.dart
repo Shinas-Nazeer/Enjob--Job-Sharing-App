@@ -2,7 +2,6 @@
 
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:enjobproject/screens/screen_profile.dart';
 import 'package:enjobproject/widgets/button.dart';
 import 'package:enjobproject/widgets/textform.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -73,25 +72,25 @@ class ScreenRegistration extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Sizedbox(),
+                  const Ksizedbox(),
                   CommonTextFormField(
                     label: 'Enter Email Name',
                     validator: globalvariable.emailtextformvalidator,
                     textEditingController: globalvariable.userNameController,
                   ),
-                  const Sizedbox(),
+                  const Ksizedbox(),
                   CommonTextFormField(
                     label: 'Enter Your Name',
                     validator: globalvariable.textformvalidator,
                     textEditingController: globalvariable.nameController,
                   ),
-                  const Sizedbox(),
+                  const Ksizedbox(),
                   CommonTextFormField(
                     label: 'Enter password',
                     validator: globalvariable.passwordValidator,
                     textEditingController: globalvariable.passwordController,
                   ),
-                  const Sizedbox(),
+                  const Ksizedbox(),
                   CommonTextFormField(
                     label: 'Confirm Password',
                     validator: (value) {
@@ -104,13 +103,13 @@ class ScreenRegistration extends StatelessWidget {
                     },
                     textEditingController: globalvariable.rePasswordController,
                   ),
-                  const Sizedbox(),
+                  const Ksizedbox(),
                   CommonTextFormField(
                     label: 'Phone Number',
                     validator: globalvariable.textformvalidator,
                     textEditingController: globalvariable.phoneNumberController,
                   ),
-                  const Sizedbox(),
+                  const Ksizedbox(),
                   Mybutton(
                     label: 'Create Your Account',
                     ontap: () async {

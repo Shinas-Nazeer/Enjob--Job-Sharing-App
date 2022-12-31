@@ -1,19 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:enjobproject/constants/constants.dart';
-import 'package:enjobproject/globalerror/alert.dart';
-import 'package:enjobproject/globalerror/errormessage.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import '../widgets/jobwidget.dart';
 
-class ScreenPostedJObs extends StatelessWidget {
-  ScreenPostedJObs({
+class ScreenAppliedJObs extends StatelessWidget {
+  ScreenAppliedJObs({
     Key? key,
   }) : super(key: key);
   final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
+    // final UserCurrent myUser = UserCurrent(user.email!, user.uid, user.photoURL!, user.displayName!);
     return Scaffold(
       //  backgroundColor: kThemecolor,
       appBar: AppBar(
@@ -24,7 +25,7 @@ class ScreenPostedJObs extends StatelessWidget {
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
             .collection('jobs')
-            .where('uploadedby', isEqualTo: user.uid)
+            .where('applicantslist', arrayContains: user.uid) .where('requirement', isEqualTo: true)
             .orderBy('createdat', descending: false)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -45,6 +46,7 @@ class ScreenPostedJObs extends StatelessWidget {
                           itemCount: snapshot.data?.docs.length,
                           itemBuilder: ((context, index) {
                             final jobdetails = snapshot.data?.docs[index];
+
                             return Jobwidget(
                               jobtitle: jobdetails['jobtitle'],
                               jobdescriptions: jobdetails['jobdescription'],
@@ -52,28 +54,16 @@ class ScreenPostedJObs extends StatelessWidget {
                               lastdate: jobdetails['deadlinedate'],
                               image: jobdetails['userimage'],
                               trailing: InkWell(
-                                  onTap: () {
-                                    showAlerttoUser(
-                                      context,
-                                      'AreYou Sure Want To Delete?',
-                                      onpressed: () async {
-                                        await FirebaseFirestore.instance
-                                            .collection('jobs')
-                                            .doc(jobdetails['jobId'])
-                                            .delete();
-                                        globalMessage(
-                                            color: Colors.green,
-                                            messgae: 'Job has been Deleted ');
-                                      },
-                                    );
-                                  },
+                                  onTap: () {},
                                   child: const Icon(
-                                    Icons.delete_forever,
+                                    Icons.upload,
                                     size: 40,
                                   )),
                               userUID: jobdetails['uploadedby'],
                               jobId: jobdetails['jobId'],
-                              applicants: jobdetails['applicants'], joblocation:jobdetails ['joblocation'], uploaderEmail: jobdetails['email'],
+                              applicants: jobdetails['applicants'],
+                              joblocation: jobdetails['joblocation'],
+                              uploaderEmail: jobdetails['email'],
                             );
                           })),
                     ),
