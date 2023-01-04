@@ -9,33 +9,27 @@ Users  can Search for Jobs and Filter option is available.
 Recuiter Can able to see the  list of applicants and Recuiter can able to turn off/on thire recuirements.
 I have used Provider for State Mangement and Firebase as backend solution
 
-![6](https://user-images.githubusercontent.com/109856293/210517710-69887cf3-b0e1-4011-b858-dbb6542591a8.jpg)
+![1](https://user-images.githubusercontent.com/109856293/210518639-b205493f-b21e-43eb-a0db-90bf663343df.jpg)
 
+
+![3](https://user-images.githubusercontent.com/109856293/210518699-8425e8da-5367-4514-99ec-ac191bcb604d.jpg)
 
 
 ![2](https://user-images.githubusercontent.com/109856293/210517848-0f36651e-84f2-4d84-93bc-65e5957d9bfd.jpg)
 
-
-![3](https://user-images.githubusercontent.com/109856293/210517860-06e29c3a-3a29-4152-aae3-1009f35752f5.jpg)
-
-
-![5](https://user-images.githubusercontent.com/109856293/210517874-f7f8ad11-5018-419f-b36e-f8a215b90213.jpg)
+![15](https://user-images.githubusercontent.com/109856293/210518987-43172cd6-6c6d-4732-828e-31352be0eb79.jpg)
 
 
-![1](https://user-images.githubusercontent.com/109856293/210517904-c7d95fcd-dec2-44f4-b300-efd22c0c89e1.jpg)
+
+![10](https://user-images.githubusercontent.com/109856293/210518871-dda60e34-89b4-49ff-82ed-6ae6bc1714bc.jpg)
 
 
-![7](https://user-images.githubusercontent.com/109856293/210517921-900f32e9-d234-4ae0-99ce-28ee0eef471e.jpg)
+
+![7](https://user-images.githubusercontent.com/109856293/210518883-6267ae15-f484-4de4-8576-cd239ed4d708.jpg)
 
 
-![10](https://user-images.githubusercontent.com/109856293/210517938-abd4f4bb-70d1-42f4-ae28-f33da7c477d1.jpg)
+![25](https://user-images.githubusercontent.com/109856293/210518901-b2bc46be-f097-40fd-ac00-b162dcbe50e5.jpg)
 
 
-![15](https://user-images.githubusercontent.com/109856293/210517952-838db3e9-7710-46c5-96c8-4c058e9c7d72.jpg)
-
-
-![20](https://user-images.githubusercontent.com/109856293/210517969-08582e44-dbd8-471f-bb29-c27ccd815013.jpg)
-One two one chat With recuiter is Possible,
-
-
-![25](https://user-images.githubusercontent.com/109856293/210517982-6f663f46-9ddf-4156-8a6e-70d5e168b7d1.jpg)
+![20](https://user-images.githubusercontent.com/109856293/210518951-d9925e9d-2c6f-40d1-b482-0a021e81ec08.jpg)
+![5](https://user-images.githubusercontent.com/109856293/210519018-2216e092-85c6-47c0-aea1-97c553594e2d.jpg)
